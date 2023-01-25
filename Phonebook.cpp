@@ -13,6 +13,7 @@ enum command
 
 void insert_data(std::map<std::string, std::string>&);
 std::string find_number(std::map<std::string, std::string>&);
+void find_surname(std::map<std::string, std::string>&, std::vector<std::string>&);
 
 int main()
 {
@@ -34,6 +35,12 @@ int main()
         std::cout << find_number(phoneBook) << std::endl;
         break;
     case command::find_telNumber:
+        std::vector<std::string> result;
+        find_surname(phoneBook, result);
+        for (int i = 0; i < result.size(); i++)
+        {
+            std::cout << result[i] << " ";
+        }
         break;
     }
 }
@@ -62,5 +69,20 @@ std::string find_number(std::map<std::string, std::string>& phoneBook)
     else
     {
         return it->second;
+    }
+}
+
+void find_surname(std::map<std::string, std::string>& phoneBook, std::vector<std::string>& result)
+{
+    std::map<std::string, std::string> ::iterator it = phoneBook.begin();
+    std::string insert;
+    std::cout << "Enter the surname: ";
+    std::cin >> insert;
+    for (std::map<std::string, std::string> ::iterator it = phoneBook.begin(); it != phoneBook.end(); ++it)
+    {
+        if (it->second == insert)
+        {
+            result.push_back(it->first);
+        }
     }
 }
