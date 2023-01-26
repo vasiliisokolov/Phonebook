@@ -6,42 +6,59 @@
 enum command
 {
     add = 1,
-    find_surname = 2,
-    find_telNumber = 3
+    find_surName = 2,
+    find_telNumber = 3,
+    out = 4
 
 };
 
 void insert_data(std::map<std::string, std::string>&);
-std::string find_number(std::map<std::string, std::string>&);
-void find_surname(std::map<std::string, std::string>&, std::vector<std::string>&);
+std::string find_surname(std::map<std::string, std::string>&);
+void find_number(std::map<std::string, std::string>&, std::vector<std::string>&);
 
 int main()
 {
     int operation;
     std::cout << "Phonebook!" << std::endl;
     std::map<std::string, std::string> phoneBook;
-    std::cout << "Choose the operation:" << std::endl;
-    std::cout << "To add the abonent - press 1" << std::endl;
-    std::cout << "To find abonent's surname - press 2" << std::endl;
-    std::cout << "To find abonent' telefonnumber - press 3" << std::endl;
-    std::cin >> operation;
-
-    switch (operation)
+    while (true)
     {
-    case command::add:
-        insert_data(phoneBook);
-        break;
-    case command::find_surname:
-        std::cout << find_number(phoneBook) << std::endl;
-        break;
-    case command::find_telNumber:
-        std::vector<std::string> result;
-        find_surname(phoneBook, result);
-        for (int i = 0; i < result.size(); i++)
+        std::cout << "Choose the operation:" << std::endl;
+        std::cout << "To add the abonent - press 1" << std::endl;
+        std::cout << "To find abonent's surname - press 2" << std::endl;
+        std::cout << "To find abonent' telefonnumber - press 3" << std::endl;
+        std::cout << "To exit - press 4" << std::endl;
+        std::cin >> operation;
+        if (operation > 0 && operation < 5)
         {
-            std::cout << result[i] << " ";
+            std::vector<std::string> res;
+            switch (operation)
+            {
+            case command::add:
+                insert_data(phoneBook);
+                break;
+            case command::find_surName:
+                std::cout << find_surname(phoneBook) << std::endl;
+                break;
+            case command::find_telNumber:
+                {
+                    std::vector<std::string> res; 
+                }
+                find_number(phoneBook, res);
+                for (int i = 0; i < res.size(); i++)
+                {
+                    std::cout << res[i] << " ";
+                }
+                break;
+            case command::out:
+                return 0;
+            }
         }
-        break;
+        else
+        {
+            std::cerr << "Error! Invalid command!" << std::endl;
+            
+        }
     }
 }
 
@@ -55,7 +72,7 @@ void insert_data(std::map<std::string, std::string>& phoneBook)
     phoneBook.insert(insert);
 }
 
-std::string find_number(std::map<std::string, std::string>& phoneBook)
+std::string find_surname(std::map<std::string, std::string>& phoneBook)
 {
     std::string insert;
     std::cout << "Enter the telephone number: ";
@@ -72,7 +89,7 @@ std::string find_number(std::map<std::string, std::string>& phoneBook)
     }
 }
 
-void find_surname(std::map<std::string, std::string>& phoneBook, std::vector<std::string>& result)
+void find_number(std::map<std::string, std::string>& phoneBook, std::vector<std::string>& res)
 {
     std::map<std::string, std::string> ::iterator it = phoneBook.begin();
     std::string insert;
@@ -82,7 +99,7 @@ void find_surname(std::map<std::string, std::string>& phoneBook, std::vector<std
     {
         if (it->second == insert)
         {
-            result.push_back(it->first);
+            res.push_back(it->first);
         }
     }
 }
