@@ -49,6 +49,7 @@ int main()
                 {
                     std::cout << res[i] << " ";
                 }
+                std::cout << std::endl;
                 break;
             case command::out:
                 return 0;
